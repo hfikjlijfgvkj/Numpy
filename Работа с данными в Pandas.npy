@@ -1,0 +1,35 @@
+# Работа с данными в Pandas
+
+import pandas as pd
+
+# Задание 1
+
+authors = pd.DataFrame({'author_id':[1, 2, 3], 'author_name':['Тургенев', 'Чехов', 'Островский']})
+
+books = pd.DataFrame({'author_id':[1, 1, 1, 2, 2, 3, 3], 'book_title':['Отцы и дети', 'Рудин', 'Дворянское гнездо', 'Толстый и тонкий', 'Дама с собачкой', 'Гроза', 'Таланты и поклонники'], 'price':[450, 300, 350, 500, 450, 370, 290]})
+
+# Задание 2
+
+authors_price = pd.merge(authors, books, on = 'author_id', how = 'outer')
+
+# Задание 3
+
+top = authors_price.groupby('book_title').agg({'price':'max'})
+
+top5 = top.tail(5)
+
+# Задание 4
+
+authors_min = authors_price.groupby('author_name').agg({'price':'min'})
+authors_min = authors_min.rename(columns = {'price':'min_price'})
+
+authors_max = authors_price.groupby('author_name').agg({'price':'max'})
+authors_max = authors_max.rename(columns = {'price':'max_price'})
+
+authors_mean = authors_price.groupby('author_name').agg({'price':'mean'})
+authors_mean = authors_mean.rename(columns = {'price':'mean_price'})
+
+authors_stat = pd.merge(authors_min, authors_max, on = 'author_name', how = 'outer')
+
+authors_stat = pd.merge(authors_stat, authors_mean, on = 'author_name', how = 'outer')
+

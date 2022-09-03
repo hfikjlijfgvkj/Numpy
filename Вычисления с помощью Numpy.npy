@@ -1,0 +1,25 @@
+# “Вычисления с помощью Numpy”
+
+import numpy as np
+
+# Задание 1
+
+  a = np.array([[1, 6], [2, 8], [3, 11], [3, 10], [1, 7]])            # столбец - признак, строка - наблюдение
+  mean_a = a.mean(axis = 0)                                           # среднее по признаку
+
+print('Среднее значение по признаку a: {}'.format(mean_a))
+
+# Задание 2
+
+  a_centered = a - mean_a
+
+print(a_centered)
+
+# Задание 3
+
+  a_centered_sp = a_centered.T[0] @ a_centered.T[1]
+
+print(a_centered_sp)
+
+  a_centered_sp / (a_centered.shape[0] - 1)
+
